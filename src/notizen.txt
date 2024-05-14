@@ -1,0 +1,9 @@
+Meeting 02.05.24
+
+über die Zeit betrachten, mit der Zeitspalte frame.time_epoche
+y = Zeit, x = nicht alle Pakete als Summe, sondern Pakete bzw. Byte pro Sec.
+Videostreams in verschiedenen Qualitäten anfordern und vergleichen in einem gemeinsamen Plot
+wie viel von der frame.len nur header, wie viel sind Payload?
+Wie viel % der Pakete haben tatsächlich einen Payload und welche keinen (z.B. Acks)
+Welche Flows gibt es? welche ist der Mainflow (nach Größe der pakete (normal) und nach paketanzahl)
+Flow = Datenstrom (Welche Daten werden zwischen wem ausgetauscht, z.B. zwischen mir und YT)
