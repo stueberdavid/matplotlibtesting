@@ -1,7 +1,7 @@
 import numpy as np
 from matplotlib import pyplot as plt
 
-def plotten(daten, anzahl):
+def plotten(daten, anzahl, x_Achse, y_Achse):
 
     x = anzahl
     y = daten
@@ -9,6 +9,10 @@ def plotten(daten, anzahl):
     plt.bar(x, y)
 
     plt.title('Datenauswertung von Versuch2.csv')
+    plt.xlabel(x_Achse)
+    plt.ylabel(y_Achse)
+
+
     plt.xlabel('Pakete über die Zeit')
     plt.ylabel('Größe der eingehenden Pakete')
     plt.grid=True
@@ -67,7 +71,7 @@ def plt_normal(versuch):
 
         zeile += 1
 
-    return (daten, anzahl)
+    return (daten, anzahl, 'Pakete über die Zeit', 'Größe der eingehenden Pakete')
 
 def plt_overtime(versuch):
     # Zeile gibt an in welcher Zeile der CSV Datei man sich befindet
@@ -89,7 +93,7 @@ def plt_overtime(versuch):
 
         zeile += 1
 
-    return (daten, zeiten)
+    return (daten, zeiten, 'Zeit in Zeitslots', 'Größe der eingehenden Pakete')
 
 def plt_paketeprosec(versuch):
     # actzeitslot ist eine Laufvariable die den aktuellen Zeitslot angibt
@@ -115,7 +119,7 @@ def plt_paketeprosec(versuch):
                 paketanzahl.append(0)
                 zeitslot.append(actzeitslot)
 
-    return(paketanzahl, zeitslot)
+    return(paketanzahl, zeitslot, 'Zeit in Zeitslots', 'Anzahl der eingehenden Pakete')
 
 def plt_byteprosec(versuch):
     # actzeitslot ist eine Laufvariable die den aktuellen Zeitslot angibt
@@ -141,7 +145,7 @@ def plt_byteprosec(versuch):
                 zeitslot.append(actzeitslot)
 
 
-    return(byteanzahl, zeitslot)
+    return(byteanzahl, zeitslot, 'Zeit in Zeitslots', 'Anzahl der Bytes')
 
 # plt_frametopayload gibt das Verhältis zwischen der Größe des gesamten Paketes und dem Payload über die Zeit an
 def plt_frametopayload(versuch):
@@ -195,15 +199,16 @@ def plt_frametopayload(versuch):
 
         zeile += 1
 
-    return (daten, anzahl)
+    return (daten, anzahl, 'Pakete über die Zeit', 'Größe der eingehenden Payloads')
 
-def plt_(versuch):
+# plt_flow gibt ein Balkendiagram zurück, dass die einzelnen Flow mit der Anzahl der gesenendeten Pakete zeigt
+def plt_flow(versuch):
 
-    # daten ist eine Liste die immer die Paketgröße abspeichert, wenn ein Paket empfangen wurde
+    # flow ist eine Liste die die einzelnen Flow in Form von der IP Adressen speichert
     flows = []
 
-    # anzahl ist eine Liste mit der Anzahl von der Liste 'daten'
-    flowenum = [[]]
+    # flowenum ist eine Liste die Speichert wie oft ein Flow mit dem PC interargiert hat
+    flowenum = []
 
     meine_ip = '172.16.31.14'
 
@@ -212,21 +217,17 @@ def plt_(versuch):
 
         if (versuch.loc[index, 'ip.dst'] == meine_ip):
             if not versuch.loc[index, 'ip.src'] in flows:
-                x = 0
-                flowenum.append(versuch.loc[index, 'ip.src'], x)
+                flowenum.append(0)
+                flows.append(versuch.loc[index, 'ip.src'])
             else:
-                flowenum[versuch.loc[index, 'ip.src'], x] = flowenum[(versuch.loc[index, 'ip.src'], x + 1)]
+                flowenum[flows.index(versuch.loc[index, 'ip.src'])] += 1
 
         if (versuch.loc[index, 'ip.src'] == meine_ip):
             if not versuch.loc[index, 'ip.dst'] in flows:
-                x = 0
-                flowenum.append(versuch.loc[index, 'ip.dst'], x)
+                flowenum.append(0)
+                flows.append(versuch.loc[index, 'ip.dst'])
             else:
-                flowenum[versuch.loc[index, 'ip.dst'], x] = flowenum[(versuch.loc[index, 'ip.dst'], x + 1)]
 
+                flowenum[flows.index(versuch.loc[index, 'ip.dst'])] += 1
 
-
-
-    return (flowenum[[]], flows)
-
-
+    return (flowenum, flows, 'Flows', 'Anzahl der geschickten Pakete')
