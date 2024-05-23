@@ -1,12 +1,15 @@
 import numpy as np
 import pandas as pd
+import pandasplot
 import plot
+
 
 versuch = pd.read_csv('streamvergleich720p.csv')
 versuch2 = pd.read_csv('streamvergleich144p.csv')
 
-plot.plotten(plot.plt_flow(versuch)[0], plot.plt_flow(versuch)[1],
-             plot.plt_flow(versuch)[2], plot.plt_flow(versuch)[3])
+pandasplot.plt_normal('streamvergleich720p.csv')
+
+
 '''
 versuchsplott = plot.plt_overtime(versuch)
 versuchsplott2 = plot.plt_overtime(versuch2)

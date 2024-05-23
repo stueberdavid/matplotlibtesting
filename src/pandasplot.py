@@ -1,5 +1,6 @@
 import numpy as np
 from matplotlib import pyplot as plt
+import pandas as pd
 
 
 def plotten(daten, anzahl, x_achse, y_achse):
@@ -45,7 +46,17 @@ def plottendoppel(daten, anzahl, daten2, anzahl2):
     plt.show()
 
 
-def plt_normal(versuch):
+def plt_normal(dateiname):
+
+    versuch = pd.read_csv(dateiname, usecols=['ip.dst', 'frame.len'])
+
+    daten = versuch[versuch['ip.dst'] == '172.16.31.14']
+    daten_list = daten['frame.len'].to_list()
+
+
+
+
+
     # Zeile gibt an in welcher Zeile der CSV Datei man sich befindet
     zeile = 0
 

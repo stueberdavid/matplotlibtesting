@@ -7,3 +7,17 @@ wie viel von der frame.len nur header, wie viel sind Payload?
 Wie viel % der Pakete haben tatsächlich einen Payload und welche keinen (z.B. Acks)
 Welche Flows gibt es? welche ist der Mainflow (nach Größe der pakete (normal) und nach paketanzahl)
 Flow = Datenstrom (Welche Daten werden zwischen wem ausgetauscht, z.B. zwischen mir und YT)
+
+
+Meeting 22.05.24
+
+Pandas Dataframe googlen
+performence verbessern
+
+vorher eine Liste einlegen, weil Append gefährlich ist für die Performance
+in eine Array die Anzahl der Pakete von allen AllNetworkTrafic (die erste Datei)
+sortieren nach größe
+plot von sortierten Liste
+
+für Performance keine for-Schleife verwenden!
+ChatGPT um hilfe fragen, um for-Schleifen zu vermeiden
