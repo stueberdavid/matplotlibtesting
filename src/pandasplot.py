@@ -3,7 +3,13 @@ from matplotlib import pyplot as plt
 import pandas as pd
 
 
-def plotten(daten, anzahl, x_achse, y_achse):
+def plotten(input):
+
+    daten = input[0]
+    anzahl = input[1]
+    x_achse = input[2]
+    y_achse = input[3]
+
     x = anzahl
     y = daten
 
@@ -48,40 +54,14 @@ def plottendoppel(daten, anzahl, daten2, anzahl2):
 
 def plt_normal(dateiname):
 
+
     versuch = pd.read_csv(dateiname, usecols=['ip.dst', 'frame.len'])
 
     daten = versuch[versuch['ip.dst'] == '172.16.31.14']
     daten_list = daten['frame.len'].to_list()
+    daten_anzahl = np.arange(len(daten_list))
 
-
-
-
-
-    # Zeile gibt an in welcher Zeile der CSV Datei man sich befindet
-    zeile = 0
-
-    # intanzahl ist eine Laufvariable, die angibt wie viele Werte in der List 'daten' stehen und speichert diese in der
-    # Liste 'Anzahl'
-    intanzahl = 0
-
-    # daten ist eine Liste, die immer die Paketgröße abspeichert, wenn ein Paket empfangen wurde
-    daten = []
-
-    # Anzahl ist eine Liste mit der Anzahl von der Liste 'daten'
-    anzahl = []
-
-    # iteriert über die CSV Datei und speichert die Länge der empfangenen Pakete in der Liste 'daten'
-    for index, row in versuch.iterrows():
-        if versuch.loc[zeile, 'ip.dst'] == '172.16.31.14':
-            laenge = versuch.loc[zeile, 'frame.len']
-
-            anzahl.append(intanzahl)
-            intanzahl += 1
-            daten.append(laenge)
-
-        zeile += 1
-
-    return daten, anzahl, 'Pakete über die Zeit', 'Größe der eingehenden Pakete'
+    return daten_list, daten_anzahl, 'Pakete über die Zeit', 'Größe der eingehenden Pakete'
 
 
 def plt_overtime(versuch):
