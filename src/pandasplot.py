@@ -57,8 +57,11 @@ def plt_normal(dateiname):
 
     versuch = pd.read_csv(dateiname, usecols=['ip.dst', 'frame.len'])
 
-    daten = versuch[versuch['ip.dst'] == '172.16.31.14']
-    daten_list = daten['frame.len'].to_list()
+    #daten = versuch[versuch['ip.dst'] == '172.16.31.14']
+    daten_list = versuch['frame.len'][np.where(versuch['ip.dst'] == '172.16.31.14')[0]]
+
+    ##daten_list = [None] * len(daten)
+    #+daten_list = daten['frame.len'].to_list()
     daten_anzahl = np.arange(len(daten_list))
 
     return daten_list, daten_anzahl, 'Pakete über die Zeit', 'Größe der eingehenden Pakete'

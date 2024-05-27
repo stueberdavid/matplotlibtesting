@@ -23,7 +23,12 @@ für Performance keine for-Schleife verwenden!
 ChatGPT um hilfe fragen, um for-Schleifen zu vermeiden
 
 
+Statistiken
 
+Wie viele Daten in den einzlnen Dateien
+Wie groß sind die im Mittel
+Wie groß ist die Bandbreite der Download Pakete
+Wie sin d
 
 
 def plt_normal(dateiname):
