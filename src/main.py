@@ -1,3 +1,7 @@
+import cProfile
+import pstats
+
+
 import numpy as np
 import pandasplot
 '''
@@ -6,7 +10,14 @@ daten_anzahl = np.arange(daten_laenge + 1)
 zahl_liste = daten_anzahl.tolist()
 '''
 
-pandasplot.plotten(pandasplot.plt_normal('streamvergleich720p.csv'))
+with cProfile.Profile() as profile:
+    normal = pandasplot.plt_normal('streamvergleich720p.csv')
+    pandasplot.plotten(normal)
+
+results = pstats.Stats(profile)
+results.sort_stats(pstats.SortKey.TIME)
+results.print_stats()
+results.dump_stats("results.prof")
 
 '''
 versuchsplott = plot.plt_overtime(versuch)
