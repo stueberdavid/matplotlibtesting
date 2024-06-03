@@ -56,30 +56,14 @@ def plt_normal2(dateiname):
 
     return daten, anzahl, 'Pakete über die Zeit', 'Größe der eingehenden Pakete'
 
-def plt_normal(dateiname):
 
-
-    versuch = pd.read_csv(dateiname, usecols=['ip.dst', 'frame.len'])
-
-    #daten = versuch[versuch['ip.dst'] == '172.16.31.14']
-    daten = versuch.query("`ip.dst` == '172.16.31.14'")
-    #daten_list = [None] * len(daten)
-    daten_list = daten['frame.len'].to_list()
-    daten_anzahl = np.arange(len(daten_list))
-
-    return daten_list, daten_anzahl, 'Pakete über die Zeit', 'Größe der eingehenden Pakete'
 
 # Der zu messende Code als String
 code_to_test = """
-input_data = plt_normal('streamvergleich720p.csv')
-plotten(input_data)
-"""
-code_to_test2 = """
 input_data = plt_normal2('streamvergleich720p.csv')
 plotten(input_data)
 """
+
 # Zeit messen
 elapsed_time = timeit.timeit(code_to_test, number=1, globals=globals())
-elapsed_time2 = timeit.timeit(code_to_test2, number=1, globals=globals())
 print(f"Die Laufzeit beträgt {elapsed_time:.4f} Sekunden")
-print(f"Die Laufzeit beträgt {elapsed_time2:.4f} Sekunden")

@@ -31,6 +31,25 @@ Wie groß ist die Bandbreite der Download Pakete
 Wie sin d
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 def plt_normal(dateiname):
     versuch = pd.read_csv(dateiname, usecols=['ip.dst', 'frame.len'])
 
