@@ -22,13 +22,31 @@ plot von sortierten Liste
 für Performance keine for-Schleife verwenden!
 ChatGPT um hilfe fragen, um for-Schleifen zu vermeiden
 
+Meeting 27.05.24
 
 Statistiken
 
 Wie viele Daten in den einzlnen Dateien
 Wie groß sind die im Mittel
 Wie groß ist die Bandbreite der Download Pakete
-Wie sin d
+
+
+filling => Buffer wird gefüllt
+depletion => Buffer wird geleert
+stalling => Buffer ist leer
+
+
+Meeting 03.06.24
+
+pcaps streamen => übertragen von einem PC zum anderen wie bei Server und PC
+Ressourcen = Ram und CPu Monitoren
+Test wiederhoeln Respery Pi
+Per Mail anschreiben nicht per RocketChat
+Ziel: Verstehen wie die Datenanlyse
+
+Paper von Wassermann (anschauen)
+Wir versuchen mit hoher Effizienz
+Wasser detailierte Analyse (effizienz egal)
 
 
 
@@ -50,11 +68,12 @@ Wie sin d
 
 
 
-def plt_normal(dateiname):
-    versuch = pd.read_csv(dateiname, usecols=['ip.dst', 'frame.len'])
 
-    daten = versuch[versuch['ip.dst'] == '172.16.31.14']
-    daten_list = daten['frame.len'].to_list()
-    daten_anzahl = np.arange(len(daten_list))
 
-    return daten_list, daten_anzahl, 'Pakete über die Zeit', 'Größe der eingehenden Pakete'
+
+
+
+
+
+
+

@@ -10,7 +10,8 @@ daten_anzahl = np.arange(daten_laenge + 1)
 zahl_liste = daten_anzahl.tolist()
 '''
 
-di.plotueberordner('dateipfad des ordners')
+#di.plotueberordner_downloadrate('/home/david/mobile_yt_dataset/dataset/')
+di.plotueberordner_downloadrate('/home/david/Testmobile_yt_dataset/')
 
 
 
