@@ -45,7 +45,7 @@ def plotueberordner_downloadrate (dateipfad):
     for filename in os.listdir(dateipfad):
         zaehler += 1
 
-    # initialisierung der Liste für Performance
+    # initialisierung der  Liste für Performance
     daten = [0] * zaehler
 
     actzeitslot = 0
