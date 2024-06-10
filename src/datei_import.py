@@ -32,7 +32,7 @@ def plotueberordner_dateigroesse (dateipfad):
 
     plt.bar (daten_anzahl, daten)
     plt.xlabel('Nummer der Datei')
-    plt.ylabel('Datei Größe der Datei')
+    plt.ylabel('Datei Größe der Datei in MB')
 
 
     plt.show()
@@ -55,25 +55,37 @@ def plotueberordner_downloadrate (dateipfad):
     for index, filename in enumerate(sorted(os.listdir(dateipfad))):
         full_path = os.path.join(dateipfad, filename, 'all_network_traffic.csv')
         current_file_data = pd.read_csv(full_path)
-        actzeit = math.floor(current_file_data.loc[0, 'timestamp'])
-
+        actzeit = math.floor(current_file_data.loc[index, 'timestamp'])
+        print(f"Datei: + {index}")
         for index1, row in current_file_data.iterrows():
             zeile = index1
+            print(f"Zeile: {index1}")
             if current_file_data.loc[zeile, 'ipDst'] == '10.10.0.140':
+                print("IP_DST ==  Meine IP")
                 if actzeit == math.floor(current_file_data.loc[zeile, 'timestamp']):
-                    daten[index] += current_file_data.loc[zeile, 'udpLen'] + current_file_data.loc[zeile, 'tcpLen']
+                    if pd.isna(current_file_data.loc[zeile, 'udpLen']):
+                        daten[index] += (current_file_data.loc[zeile, 'tcpLen'])
+                    else:
+                        daten[index] += current_file_data.loc[zeile, 'udpLen']
+
                 else:
                     actzeit = math.floor(current_file_data.loc[zeile, 'timestamp'])
                     actzeitslot += 1
-                    daten[index] += current_file_data.loc[zeile, 'udpLen'] + current_file_data.loc[zeile, 'tcpLen']
+                    if pd.isna(current_file_data.loc[zeile, 'udpLen']):
+                        daten[index] += (current_file_data.loc[zeile, 'tcpLen'])
+                    else:
+                        daten[index] += current_file_data.loc[zeile, 'udpLen']
+    print(daten)
+    for index, _ in enumerate(os.listdir(dateipfad)):
         daten[index] = daten[index]/actzeitslot
 
     # Liste mit Indexing für plotten-aufruf
     daten_anzahl = np.arange(zaehler)
+    print(daten)
 
     plt.bar(daten_anzahl, daten)
     plt.xlabel('Nummer der Datei')
-    plt.ylabel('Durchschnittliche Downloadrate')
+    plt.ylabel('Durchschnittliche Downloadrate (ermittelt durch Paketgroßen)')
 
 
     plt.show()

@@ -40,7 +40,7 @@ Meeting 03.06.24
 
 pcaps streamen => übertragen von einem PC zum anderen wie bei Server und PC
 Ressourcen = Ram und CPu Monitoren
-Test wiederhoeln Respery Pi
+Test wiederholen Respery Pi
 Per Mail anschreiben nicht per RocketChat
 Ziel: Verstehen wie die Datenanlyse
 
