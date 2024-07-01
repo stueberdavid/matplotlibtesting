@@ -50,6 +50,25 @@ Wasser detailierte Analyse (effizienz egal)
 
 
 
+Meeting 01.07.24
+
+.pcap Streamen
+
+Download anschauen
+Upload anschauen
+
+Ressourcenverbrauch anschauen und vergleichen (CPU mem (oder so) laufen lassen) CPU Info cutten
+Befehl suchen um CPU auslastung anzuschauen
+
+
+Noah hilft um Testset aufzubauen (einen Rechner aufsetzen als Traffic Source)
+An diesem PC soll monitoring stattfinden
+
+TCP Replay benutzen
+
+
+
+
 
 
 
