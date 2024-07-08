@@ -56,12 +56,9 @@ def plotueberordner_downloadrate (dateipfad):
         full_path = os.path.join(dateipfad, filename, 'all_network_traffic.csv')
         current_file_data = pd.read_csv(full_path)
         actzeit = math.floor(current_file_data.loc[index, 'timestamp'])
-        print(f"Datei: + {index}")
         for index1, row in current_file_data.iterrows():
             zeile = index1
-            print(f"Zeile: {index1}")
             if current_file_data.loc[zeile, 'ipDst'] == '10.10.0.140':
-                print("IP_DST ==  Meine IP")
                 if actzeit == math.floor(current_file_data.loc[zeile, 'timestamp']):
                     if pd.isna(current_file_data.loc[zeile, 'udpLen']):
                         daten[index] += (current_file_data.loc[zeile, 'tcpLen'])
@@ -75,13 +72,11 @@ def plotueberordner_downloadrate (dateipfad):
                         daten[index] += (current_file_data.loc[zeile, 'tcpLen'])
                     else:
                         daten[index] += current_file_data.loc[zeile, 'udpLen']
-    print(daten)
     for index, _ in enumerate(os.listdir(dateipfad)):
         daten[index] = daten[index]/actzeitslot
 
     # Liste mit Indexing für plotten-aufruf
     daten_anzahl = np.arange(zaehler)
-    print(daten)
 
     plt.bar(daten_anzahl, daten)
     plt.xlabel('Nummer der Datei')
@@ -92,7 +87,7 @@ def plotueberordner_downloadrate (dateipfad):
 
 # ÄNDERUNG: Um den Upload zu bekommen, muss immer das betrachtet werden, was raus geht, also ggf. wo die srcIP == meine IP ist
 # Noch ist es ein Downloadraten Berechner
-def plottenueberordner_uploadrate (dateipfad):
+def plotueberordner_uploadrate (dateipfad):
 
     zaehler = 0
     # zählt wie viele Datein in dem Ordner vorhanden sind
@@ -114,8 +109,8 @@ def plottenueberordner_uploadrate (dateipfad):
         for index1, row in current_file_data.iterrows():
             zeile = index1
             print(f"Zeile: {index1}")
-            if current_file_data.loc[zeile, 'ipDst'] == '10.10.0.140':
-                print("IP_DST ==  Meine IP")
+            if current_file_data.loc[zeile, 'ipSrc'] == '10.10.0.140':
+                print("IP_SRC ==  Meine IP")
                 if actzeit == math.floor(current_file_data.loc[zeile, 'timestamp']):
                     if pd.isna(current_file_data.loc[zeile, 'udpLen']):
                         daten[index] += (current_file_data.loc[zeile, 'tcpLen'])

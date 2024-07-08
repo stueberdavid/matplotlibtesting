@@ -67,7 +67,32 @@ An diesem PC soll monitoring stattfinden
 TCP Replay benutzen
 
 
+Notizen für mein Verständnis:
 
+Mit Hilfe von RCP Replay .pcaps streamen:
+Befehl:
+sudo tcpreplay --intf1=enp0s25 test.pcap
+enp0s25 ist der Name von meinem Netzwerk Port
+test.pcap ist der Name der .pcap Datei, die ich streamen möchte
+
+CPU: Tracken
+In den Systemeinstellungen kann man sich das graphisch anzeigen lassen
+Befehl: gnome-system-monitor
+
+Mit Hilfe von Collectd kann man das Monitoring auch speichern um es später analysieren zu können
+Befehle:
+In die Einstellungen zu kommen:
+sudo nano /etc/collectd/collectd.conf
+
+Statusabfrage:
+sudo systemctl status collectd
+
+Neustart (nach jeder Änderung in den Einstellung):
+sudo systemctl restart collectd
+
+Monitoring wird unter
+/var/lib/collectd/csv/127.0.0.1
+gespeichert
 
 
 

@@ -14,8 +14,6 @@ zahl_liste = daten_anzahl.tolist()
 di.plotueberordner_downloadrate('/home/david/Testmobile_yt_dataset/')
 
 
-
-
 '''''
 with cProfile.Profile() as profile:
     normal = pandasplot.plt_normal('streamvergleich720p.csv')
