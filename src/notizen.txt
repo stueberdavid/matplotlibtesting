@@ -94,16 +94,48 @@ Monitoring wird unter
 /var/lib/collectd/csv/127.0.0.1
 gespeichert
 
+ssh Befehl um Zugriff auf Server-Rechner zu bekommen:
+ssh david@10.0.0.1
+
+
+Meeting 08.07.24 (letztes Meeting vor den Prüfungen)
+cat /proc ...(im System finden)
+
+
+erstmal Testnetz aufstellen und zur Probe .pcaps Streamen
+=> wenn das steht, dann die großen .pcap Daten von Frank holen
+
+Szenarien erstellen, um nicht alle .pcaps (sinnlos) zu streamen
+
+Ergebnisse
 
 
 
 
+Meeting 15.07.24
+
+htop oder top für CPU live anzuschauen
 
 
 
+Ein Script bauen:
+
+sc = Script
+
+auf server Script starten
+zeit loggen (ersten timestamp (millisekunden reichen)
+von Sc CPU erfassung starten
+Befehl nice (CPU pinning) oder (linux CPU pinning)
+vom sc daten streamen und captachern starten
+untersuchen: Wie verhält sich die CPU
+Wenn ich alle Daten Capture
+nur Downlink oder nur Uplink
+oder nur Uplink großer 200 oder 300 byte
+
+FALLS: Ich bei linux CPU Monitoring nicht weiterkommen, dann bei Noah melden
 
 
-
+Proseccing...
 
 
 

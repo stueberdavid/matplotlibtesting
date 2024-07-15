@@ -8,7 +8,6 @@ import math
 def plotueberordner (dateipfad):
     for filename in os.listdir(dateipfad):
         pandasplot.plt_normal(filename)
-        print(filename)
 
 
 def plotueberordner_dateigroesse (dateipfad):
@@ -105,12 +104,9 @@ def plotueberordner_uploadrate (dateipfad):
         full_path = os.path.join(dateipfad, filename, 'all_network_traffic.csv')
         current_file_data = pd.read_csv(full_path)
         actzeit = math.floor(current_file_data.loc[index, 'timestamp'])
-        print(f"Datei: + {index}")
         for index1, row in current_file_data.iterrows():
             zeile = index1
-            print(f"Zeile: {index1}")
             if current_file_data.loc[zeile, 'ipSrc'] == '10.10.0.140':
-                print("IP_SRC ==  Meine IP")
                 if actzeit == math.floor(current_file_data.loc[zeile, 'timestamp']):
                     if pd.isna(current_file_data.loc[zeile, 'udpLen']):
                         daten[index] += (current_file_data.loc[zeile, 'tcpLen'])
@@ -124,13 +120,11 @@ def plotueberordner_uploadrate (dateipfad):
                         daten[index] += (current_file_data.loc[zeile, 'tcpLen'])
                     else:
                         daten[index] += current_file_data.loc[zeile, 'udpLen']
-    print(daten)
     for index, _ in enumerate(os.listdir(dateipfad)):
         daten[index] = daten[index]/actzeitslot
 
     # Liste mit Indexing für plotten-aufruf
     daten_anzahl = np.arange(zaehler)
-    print(daten)
 
     plt.bar(daten_anzahl, daten)
     plt.xlabel('Nummer der Datei')
