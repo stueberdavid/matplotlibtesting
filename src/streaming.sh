@@ -1,12 +1,12 @@
 #!/bin/bash
 
 # Pfad zur .pcap-Datei
-PCAP_FILE="/home/david/versuch1.pcap"
+PCAP_FILE="versuch1.pcap"
 # Pfad zur Ausgabedatei für die CPU-Überwachung
 OUTPUT_FILE="cpu_usage.log"
 
 # Starte tcpreplay und erhalte die PID des Prozesses
-tcpreplay -i eth0 $PCAP_FILE &
+tcpreplay -i eno1 $PCAP_FILE &
 TCPREPLAY_PID=$!
 
 # Starte die Zeitmessung
@@ -18,7 +18,7 @@ echo "Zeit (Sekunden), CPU (%)" > $OUTPUT_FILE
 # Schleife zur Überwachung der CPU-Auslastung
 while ps -p $TCPREPLAY_PID > /dev/null; do
   # Aktuelle CPU-Auslastung in Prozent (gesamtsystemweit)
-  CPU_USAGE=$(top -bn1 | grep "Cpu(s)" | sed "s/.*, *\([0-9.]*\)%* id.*/\1/" | awk '{print 100 - $1}')
+  CPU_USAGE=$(ps -p $TCPREPLAY_PID -o %cpu --no-headers)
 
   # Berechne die vergangene Zeit
   CURRENT_TIME=$(date +%s)

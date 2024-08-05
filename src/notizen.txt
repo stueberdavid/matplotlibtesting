@@ -140,6 +140,23 @@ Proseccing...
 
 
 
+Meeting
+
+cpu pinning (prozess auf einen Kern pinnen)
+hard
+
+cpu auslastung in % wird pro kern angegben nicht von allen zusammen
+
+daten zur Auswertung
+CPU
+RAM
+
+IO mit loggen zum Debuggen
+
+Hauptfrage:
+trace up und down vs nur down vs nur uplink
+
+
 
 
 
