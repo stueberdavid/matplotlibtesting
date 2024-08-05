@@ -140,7 +140,7 @@ Proseccing...
 
 
 
-Meeting
+Meeting 05.08.24 (erstes Meeting nach Prüfungen)
 
 cpu pinning (prozess auf einen Kern pinnen)
 hard

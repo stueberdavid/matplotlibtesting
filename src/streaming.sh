@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Pfad zur .pcap-Datei
-PCAP_FILE="versuch1.pcap"
+PCAP_FILE="test.pcap"
 # Pfad zur Ausgabedatei für die CPU-Überwachung
 OUTPUT_FILE="cpu_usage.log"
 
