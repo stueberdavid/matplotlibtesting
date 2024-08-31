@@ -191,8 +191,6 @@ Nicht nur weniger Pakete schicken, sondern auch beobachten wie sich das erhält,
 
 TODO:
 
-Script in Python umschreiben
-
 Ressourcen in einer CSV Datei speichern
 
 verschiedene Straming .pcaps anschauen (haben die niedrigeren Qualitäten im Verhältnis mehr Upload Pakete?)
@@ -201,10 +199,29 @@ verschiedene Straming .pcaps anschauen (haben die niedrigeren Qualitäten im Ver
 Script so anpassen, dass es die Daten von der Festplatte streamt
 
 
+Meeting 02.09.24
+
+Verschiedene Lasten im Upload beobachten (und Kurve beobachten)
+
+Parallel mehrer Uploadflows schicken
+
+Begriffe in der annotated.csv:
+stalling: 0 -> kein Stalling, 1 -> Stalling tritt auf
+
+qc: 0 -> kein Qualitätswechsel, 1 -> Qualitätswechsel
+qcFrom = von welcher Qualität weg gewechselt wird
+qcTo = zu welcher Qualität weg gewechselt wird
+
+Zahlen auf Qualitäten auflösen (in Google schauen -> https://gist.github.com/sidneys/7095afe4da4ae58694d128b1034e01e2)
+Besonders wichtig sind die Auflösungen von 242 bis 278
 
 
+Zum CPU Verbrauch:
+In der Datei /proc/"pid"/stat
+Verbrauchte Zeit = 14th + 15th
+Gesamte Zeit = 22th
 
-
+CPU Auslastung in %: (14th + 15th) / 22th
 
 
 
