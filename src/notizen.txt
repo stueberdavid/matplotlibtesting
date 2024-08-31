@@ -156,11 +156,49 @@ IO mit loggen zum Debuggen
 Hauptfrage:
 trace up und down vs nur down vs nur uplink
 
+Meeting 19.08.24
+
+
+genauere Auslastung betrachten (mehr als zwei Kommastellen)
+
+Anzahl der Pakete pro Sekunde
+Größe der Pakete pro Sekunde
+
+CPU teilen durch Anzahl und durch Größe
+
+Schauen wie die Kurve steigt bei Pakete und CPU Auslastung
+
+Herausfinden wofür die CPU Auslastung benutzt wird
+
+Mit verschiedenen Streamqualitäten
 
 
 
+Meeting 26.08.24
+
+*.pcap nutzen für dateipfad
+
+inputpath = '/media/david/223ba2ff-1496-4758-9469-2564dd4f8b20/Logfiles/Wuerzburg_logs_1_1_18/Scenario_1/Vid_2d1VrCvdzbY'
+inputfilenames = "*.pcap"
+all_files = [file
+             for path, subdir, files in os.walk(inputpath)
+             for file in glob(os.path.join(path, inputfilenames))]
+
+das ist aus dem Datensatz den wir mal runtergeladen haben in mobile_yt_dataset -> Material -> process_stats_for_nerds.py
 
 
+Nicht nur weniger Pakete schicken, sondern auch beobachten wie sich das erhält, wenn man weniger Pakete beobachtet
+
+TODO:
+
+Script in Python umschreiben
+
+Ressourcen in einer CSV Datei speichern
+
+verschiedene Straming .pcaps anschauen (haben die niedrigeren Qualitäten im Verhältnis mehr Upload Pakete?)
+-> ggf. Script durchlaufen lassen, um zu beobachten, wie sich das auf Ressourcenverbrauch auswirkt
+
+Script so anpassen, dass es die Daten von der Festplatte streamt
 
 
 
