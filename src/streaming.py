@@ -11,6 +11,3 @@ all_files = [file
 
 for n in all_files:
     subprocess.run(["sudo", "/home/david/datensenden_Python.sh", n])
-
-
-print("Programm durchgelaufen!")
