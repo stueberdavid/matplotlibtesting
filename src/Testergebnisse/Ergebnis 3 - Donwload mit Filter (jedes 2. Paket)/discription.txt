@@ -1,0 +1,8 @@
+Ergebnis 3
+
+- Aufzeichnung der CPU Leistung beim Empfangen der Daten auf streamingvergleich1400p.pcap
+- Sender: kleiner HP Rechner (Nr.11)
+- Empfänger: großer Fujitsu
+
+- Gesammelte Daten in reciver_resource_usage.csv
+    -> gemessen mit datenauswerten_all.filter.py

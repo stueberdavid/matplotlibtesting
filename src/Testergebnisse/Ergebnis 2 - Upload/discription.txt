@@ -1,0 +1,12 @@
+Ergebnis 2
+
+- Aufzeichnung der CPU Leistung beim Senden der Daten auf streamingvergleich1400p.pcap
+- Sender: großer Fujitsu
+- Empfänger: kleiner HP Rechner (Nr.11)
+
+- Gesammelte Daten in reciver_resource_usage.csv
+    -> gemessen mit datenauswerten_up.py
+    -> modifiziert mit:
+    MEINE_IP = "216.58.206.46"
+    MEINE_IP1 = "74.125.162.166"
+    tshark_cmd = ["sudo", "tshark", "-i", INTERFACE, "-w", CAPTURE_FILE, "-f", f"src host {MEINE_IP} or src host {MEINE_IP1}"]

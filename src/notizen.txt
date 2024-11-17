@@ -224,4 +224,130 @@ Gesamte Zeit = 22th
 CPU Auslastung in %: (14th + 15th) / 22th
 
 
+Meeting 23.09.24
+
+Wie viele Daten werden übertragen und in welchem Verhältnis steht das?
+
+Wie steigen die einzelnen Ressourcen (CPU, und RAM)
+
+Wie kann man IO beobachten, was und wie?
+
+
+
+------------------- WICHTIG --------------------
+Befehl um Python Scripte auszuführen:
+sudo python3 "/home/david/PycharmProjects/matplotlibtesting/src/datenaustausch testbet/datenauswerten_down.py"
+------------------------------------------------
+
+
+
+
+Meeting 07.10.24
+
+- Beim Beobachten vom Upload das Python Script selber betrachten
+
+- Mal schauen ab wie viel Paketen das komische Ende mit den Nachkommastellen auftritt und ob dies konsitent auftritt
+        Tritt leider in Bezug auf Pakete inkonsistent auf. (ab ca. 120 Paketen)
+
+
+- Mit iperf -Python googlen den Datenverkehr generieren (siehe FireFox)
+
+
+- Zum Beobachten von weniger Paketen, einfach die FrameNumber mit Modulo betrachten.
+- thsark filter pid um die Frame Number zu finden im ip-Header
+
+
+Meeting 14.10.24
+
+CPU Verbrauch vergleichen mit Script und ohne Script
+Verteilung Plotten (siehe Folien)
+
+PDF -> Vertileungsdichtefunktion,
+CDF -> Verteilungsfunktion x-Achse =CPU auslastung, y- p(das es kleiner ist),
+Boxplot -> Zusammenfassung / Vergleich von Verteilungen
+
+- In der Dokumentation von der Proc Datei schauen, wo die IO Times stehen
+    Es ist zu sehen wie viele Bytes von der Anwendung gelesen und geschrieben werden
+
+    Frage: Bekommt man auch die relative IO Time?
+    Also ingesamte IO Time geteilt durch benutzte IO Time -> Gibt an wie viel IO Time der Prozess verwendet hat
+
+- Anschauen, ob das Beobachten von weniger Paketen zu weniger CPU auslastung führt via vorherigen Filter (TC - Trafic Control)
+    Vorheriges filtern ist nicht möglich, cpu auslastung ist ziemlich identisch
+
+    Andere Möglichkeit: mit net-em qdisc und dem lost befehl einen prozentsatz von Paketen einfah zu droppen
+        mit der State config spielen um zu schauen, dass nur jedes x paket ankommt
+         LOSS := loss { random PERCENT [ CORRELATION ]  |
+                      state p13 [ p31 [ p32 [ p23 [ p14]]]] |
+                      gemodel p [ r [ 1-h [ 1-k ]]] }  [ ecn ]
+
+
+(Nur als Hinweis - zum Aufsetzen von einem Streaming Server jellyfin)
+
+
+Meeting 28.10.24
+
+- In der Dokumentation von der Proc Datei schauen, wo die IO Times stehen
+    Es ist zu sehen wie viele Bytes von der Anwendung gelesen und geschrieben werden
+
+    Frage: Bekommt man auch die relative IO Time?
+    Also ingesamte IO Time geteilt durch benutzte IO Time -> Gibt an wie viel IO Time der Prozess verwendet hat
+        Antwort: Nein es gibt keine Möglichkeit aus der Proc Datei die IO Time auszulesen,
+                 aber vielleicht ist es interessant die Children vom Porzess zu betrachten,
+                 vielleicht wird da auch die IO dazugeszählt.
+                 pr_utime
+                    Specifies the user CPU time consumed by the process
+                 pr_stime
+                    Specifies the system CPU process time consumed by the process
+                 pr_cutime
+                    Specifies the cumulative user CPU time consumed by the children of the process, expressed in seconds and nanoseconds
+                 pr_cstime
+                    Specifies the cumulative system CPU time, in seconds and nanoseconds, consumed by the process's children
+
+
+- Der Filter mit der Trafic Controll funktioniert (mit Hilfe von netem)
+    Ich weiß noch nicht, wie groß die CPU Leistungs-Einsparung ist, aber auf jeden Fall geringer.
+    Frage: Soll ich die CPU Leistung der TC auch messen und sie addieren oder so?
+        -> Ist das überhaupt möglich? Mal schauen, ob ich mit der PID sinnvolle Daten bekomme.
+
+
+Meeting 04.11.24
+
+- In der Proc Datei die children anschauen (direkt vom Script)
+
+- für die Arbeit mit venv
+    Innerhalb vom venv muss noch jede bib installiert werden (entweder mit pip oder mit dem requirements.txt -> eine Datei mir den Versionen der importe)
+
+
+Meeting 11.11.24
+
+Down-Up und beide aufzeichnen
+
+und das Verhältnis der CPU anschauen
+
+Anzahl der Pakete von Up und Down Link
+die Bytes (also den Durchsatz)
+
+Gibt es Korelationen zwischen Byte und CPU oder Pakteanahl und CPU?
+
+Was spare ich wenn ich nur xte Paket anschaue korreliert das mit der CPU?
+
+Mit IPERF versenden 300 kilobit bis 50 gigabit
+
+Verhältnis zwischen der bandbreite und der CPU Auslastung
+
+
+(Nächster Schritt Zusammenhang zwischen Qualität und Energieverbrauch)
+
+
+TODO
+
+1. Download tracken bei einer pcap Datei
+2. Upload tracken bei der selben pcap Datei
+
+3. Jeweils die CPU Auslastung vergleichen mit der Paketanzahl pro Sekunde, Byteanzahl pro Sekunde. Mit dem Python Script Daten versenden
+
+4. Filter anwenden: Schauen, wie viele CPU Auslatung zu sparen ist, wenn man nur jedes x. Paket betrachtet
+
+5. IPERF Serber aufsetzen und verschiedene Bandbreiten beobachten
 
