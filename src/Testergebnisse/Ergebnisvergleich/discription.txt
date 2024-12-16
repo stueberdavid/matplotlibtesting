@@ -1,0 +1,8 @@
+Durchschnittswerte:
+
+Anmerkung: Die Scripte zum Tracken wurden immer ausgeführt bevor das Senden der Daten begonnen hat.
+Um die Ergebnisse möglichst zu vereinheitlichen wurden die Mittelwerte ab dem ersten Wert != 0,00... mitgezählt
+
+Download:           1.5292755751787697
+Upload:             0.23613110452671227
+Download Filter:    1.2471710062942847

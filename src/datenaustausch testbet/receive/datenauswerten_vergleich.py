@@ -57,7 +57,7 @@ def monitor_traffic(interface, capture_file, log_file, filter_expr=None):
                 memory_usage = proc.memory_info().rss / 1024  # Speicher in KB
 
                 # Schreibe die Ressourcennutzung in die CSV-Datei
-                log_file.write(f"{datetime.now().strftime('%H:%M:%S')};{cpu_usage:.2f};{memory_usage:.2f}\n")
+                log_file.write(f"{time.time_ns()};{cpu_usage:.2f};{memory_usage:.2f}\n")
                 log_file.flush()  # Schreibe die Datei sofort auf die Festplatte
 
                 time.sleep(1)

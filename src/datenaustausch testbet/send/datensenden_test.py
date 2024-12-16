@@ -46,5 +46,5 @@ generate(
     50000,
     50000,
     50000000000,
-    "5000B",
+    "300", # in Bit pro Sekunde
     size=1500)

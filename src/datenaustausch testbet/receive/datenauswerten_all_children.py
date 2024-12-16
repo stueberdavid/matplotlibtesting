@@ -98,7 +98,7 @@ with open(LOG_FILE, 'w') as log_file:
             memory_usage = proc.memory_info().rss / 1024  # Speicher in KB
 
             # Schreibe die Ressourcennutzung in die CSV-Datei mit 6 Nachkommastellen für CPU
-            log_file.write(f"{datetime.now().strftime('%H:%M:%S')};{cpu_usage:.15f};{memory_usage:.2f}\n")
+            log_file.write(f"{time.time_ns()};{cpu_usage:.15f};{memory_usage:.2f}\n")
             log_file.flush()  # Schreibe die Datei sofort auf die Festplatte
 
             time.sleep(1)

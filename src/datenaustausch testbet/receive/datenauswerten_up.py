@@ -7,11 +7,10 @@ from datetime import datetime
 # Variablen setzen
 INTERFACE = "enp0s25"
 #INTERFACE = "eno1"
-CAPTURE_FILE = "/home/david/test.pcap"
-LOG_FILE = "/home/david/receiver_resource_usage.csv"
+CAPTURE_FILE = "/home/david/test.up.pcap"
+LOG_FILE = "/home/david/receiver_resource_usage.up.csv"
 #MEINE_IP = "172.16.31.14"
-MEINE_IP = "216.58.206.46"
-MEINE_IP1 = "74.125.162.166"
+MEINE_IP = "10.0.0.2"
 
 
 # Entfernen der alten CAPTURE_FILE, falls vorhanden, und Erstellen eines neuen
@@ -22,7 +21,7 @@ with open(CAPTURE_FILE, 'w') as f:
 
 # Starte Tshark im Hintergrund (hier ohne Filter, Filter kann hinzugefügt werden)
 #tshark_cmd = ["sudo", "tshark", "-i", INTERFACE, "-w", CAPTURE_FILE, "-f", f"src host {MEINE_IP}", "-f", "iphdr.ip_id % 2 == 0"]
-tshark_cmd = ["sudo", "tshark", "-i", INTERFACE, "-w", CAPTURE_FILE, "-f", f"src host {MEINE_IP} or src host {MEINE_IP1}"]
+tshark_cmd = ["sudo", "tshark", "-i", INTERFACE, "-w", CAPTURE_FILE, "-f", f"src host {MEINE_IP}"]
 tshark_process = subprocess.Popen(tshark_cmd)
 
 # Warte, bis Dumpcap sicher gestartet ist
@@ -86,7 +85,7 @@ def get_cpu_usage(pid):
 
 # Starte die Überwachung der Ressourcennutzung für Dumpcap
 with open(LOG_FILE, 'w') as log_file:
-    log_file.write("Zeit;CPU(%);MEM(KB)\n")  # CSV-Header
+    log_file.write("Time in Milliseconds since Epoche;CPU(%);MEM(KB)\n")  # CSV-Header
 
     # Starte die Überwachung in einer Schleife
     try:
@@ -96,7 +95,7 @@ with open(LOG_FILE, 'w') as log_file:
             memory_usage = proc.memory_info().rss / 1024  # Speicher in KB
 
             # Schreibe die Ressourcennutzung in die CSV-Datei mit 6 Nachkommastellen für CPU
-            log_file.write(f"{datetime.now().strftime('%H:%M:%S')};{cpu_usage:.30f};{memory_usage:.2f}\n")
+            log_file.write(f"{time.time_ns()};{cpu_usage:.30f};{memory_usage:.2f}\n")
             log_file.flush()  # Schreibe die Datei sofort auf die Festplatte
 
             time.sleep(1)

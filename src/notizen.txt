@@ -332,7 +332,7 @@ Gibt es Korelationen zwischen Byte und CPU oder Pakteanahl und CPU?
 
 Was spare ich wenn ich nur xte Paket anschaue korreliert das mit der CPU?
 
-Mit IPERF versenden 300 kilobit bis 50 gigabit
+Mit IPERF versenden 300 kilobit bis 50 megabit
 
 Verhältnis zwischen der bandbreite und der CPU Auslastung
 
@@ -349,5 +349,167 @@ TODO
 
 4. Filter anwenden: Schauen, wie viele CPU Auslatung zu sparen ist, wenn man nur jedes x. Paket betrachtet
 
-5. IPERF Serber aufsetzen und verschiedene Bandbreiten beobachten
+5. IPERF Server aufsetzen und verschiedene Bandbreiten beobachten
+
+
+Meeting 18.11.24
+
+- Testergebnisse zu Downlod mit und ohne Filter und Upload
+    - Donwload wie erwartet am schlechtesten
+    - Download mit Filter etwas besser
+    - Nur Upload deutlich besser
+
+    Download:           1.5292755751787697
+    Upload:             0.23613110452671227
+    Download Filter:    1.2471710062942847
+
+- CPU über die Zeit betrachten (als Plot)
+- FRAGE: Wie und was kann ich besseres Beobachten als den Mittelwert
+
+- CDF, für verschiedene entweder mehrere CDFs oder Boxplots
+
+- Frage: Wie kann ich mithilfe des Scriptes verschiedene Datenmengen verschicken?
+
+Nochmal zum RAM:
+Kann man herausfinden, wie viel aktuell verwendet wird. Bzw, was ist der aktuelle Wert genau? Angeforderter Speicehr vom Prozess
+
+- Zeit in Millisekunden seit 1970 (also der Unix TimeStamp)
+- frame.time -epoche in tshark oder als Timepacket in Python
+
+
+- Kurve von jedem xten Paket
+
+- Idee: Ein Script, dass verschiedene Datenraten verwendet.
+
+
+TODO:
+
+1. Änderungen an Messung vornehmen:
+    1.1: Was ist das für eine Angabe beim RAM? KB oder MB
+    - Ist in KB (proc.memory_info().rss gibt es in Byte aus und ich teile den Wert durch 1024, was dann KiloByte ergibt)
+        1.1.1: Was stellt der aktuelle Wert dar?
+            Kann man herausfinden, wie viel aktuell verwendet wird. Bzw, was ist der aktuelle Wert genau? Angeforderter Speicehr vom Prozess
+            - Der aktuell verbauchte RAM
+            Aus der Dokumentation:
+                rss: aka “Resident Set Size”, this is the non-swapped physical memory a process has used. On UNIX it matches “top“‘s RES column). On Windows this is an alias for wset field and it matches “Mem Usage” column of taskmgr.exe.
+                vms: aka “Virtual Memory Size”, this is the total amount of virtual memory used by the process. On UNIX it matches “top“‘s VIRT column. On Windows this is an alias for pagefile field and it matches “Mem Usage” “VM Size” column of taskmgr.exe.
+
+                Beides sind konstante Werte...
+
+    1.2: Die Zeiteinheit ändern in Sekunden seit 1970 und am besten mit Millisekunden
+            - Zeit in Millisekunden seit 1970 (also der Unix TimeStamp)
+            - frame.time -epoche in tshark oder als Timepacket in Python
+
+            mit Python gelöst: time.time_ns()
+
+2. Code für Datenauswertung schreiben:
+    °2.1: Plot von CPU Auslastung über die Zeit
+    °2.2: CPU Auslastung in Zusammenhang mit Paketanzahl bringen (mit Plot)
+    2.3: CPU Auslastung in Zusammenahng mit Durchsatz bringen (mit Plot)
+
+3. Weitere Messungen:
+    3.1: datensenden_test.py anpassen, um verschiedene Daten und Paket-Raten versenden zu können.
+    3.2: Script schreiben, um die verschiedenen Datenraten nacheinander abzuspielen.
+    3.3: Script schreiben, das die Download CPU Auslastung mit verschiedenen Filter nacheinander trackt
+        3.3.1: Die Kurve der CPU Leistung plotten (mit immer weniger Paketen sinkt wie genau die CPU Auslastung)
+
+Meeting 03.12.24
+
+Das ursprünglich Script für das Generieren von Trafic, hat keinen Upload, den man betrachten möchte, also mit iperf generieren
+Die Qualität steigt in Stufen an und die Bitrate kontinuierlich, dadurch wollen wir möglich genau die Bitrate die für die akteulle Qualität vergeben,
+um keine unnötig hohe Bitrate für die Qualität zu haben und sozusagen bitrate zu verschenken, die uns keine bessere QoE bringt.
+
+TODO:
+Zum Datensatz:
+Die Python File evtl mal anschauen aber nicht so wichtig
+new und old sind die Zeitpunkte der Messung
+old1 und 2 sind nicht so relevant
+
+Datum wann gemessen wurde und was das Ziel ist (Stalling oder so triggern).
+Am besten das Streamen der Daten über die Annoted.csv mit Hilfe von Python generieren. Der Vorteil daran ist, dass man direkt die Anwendungsdaten wie Stalling, Qualität und so weiter einsehen kann.
+
+Erstmal weiter machen und die Kurve für die CPU Auslastung über die Zeit Paketanzahl bzw. Durchsatz anschauen
+
+Zusätzlich das Paper lesen, um die Idee von der Qualität in Beziehung zur Bitrate zu verstehen
+Paper von Frank Loh mit dem Namen:
+"Industrial User Experience Index
+vs. Quality of Experience Models"
+zu finden auf Google Scholar
+
+
+
+
+Meeting 09.12.24
+
+- Darstellung der Kurve von CPU-Auslatung über die Datenrate ist gelungen
+    - Aber die Darstellung der Download Ressorcen sind seltsam, noch unbekannt wesshalb.
+        Frage: Wieso ist das so? (Kann es sein das der Filter falsch gesetzt ist?)
+
+Frage: Beim Erstellen der Kurve von CPU-Auslastung über die Paketanzahl: Wie soll ich die Parameter dafür einstellen?
+Um so mehr Pakete mit Größe X gesendet werden, desto größer wird ja auch die Datenrate.
+Soll ich also die Größe der Pakete anändern, damit die Datenrate konstant bleibt? Oder ist es ok/gewollt, wenn die Datenrate mit ansteigt?
+
+Frage: Soll ich die Messpunkte überhaupt logarithmisch auftragen und reichen uns dabei 15 Messpunkte?
+
+Noch offen: erstellen vom Plot CPU Auslastung über Paketanzahl
+
+
+
+
+Nachschauen in welcher Einheit die Proc Datei steht?
+
+Mit den realten Datensätzen
+    Was sind die Max Datenraten für Up und Downlink?
+    Und für Downlink mit einem 4K Stream.
+
+Nächster Schritt Stromverbrauch beobachten.
+
+
+
+Um das Problem mit dem Download Filter
+die Befehle mit dem Termianl ausführen und die pcap DAteien anschauen,
+ob sie wie eerwartet aussehen.
+
+Jeden Test 10 Minuten und 30 Sek lang und innerhalb der 10 Minuten die
+CPU Auslastung über die Zeit anschauen
+
+Innerhalb schaune wann die Werte sich eingependelt haben
+dann Batchmean bilden, also 100 Intervalle bilden und jeweils den Mittelwert
+Daraus Konfidenz Intervalle bilden
+
+Verschiedene Intervalle von 10² - 10³, 10³ - 10⁴, 10⁴ - 10⁵
+für diese Intervalle jeweils eine logarithmische Aufteilung machen und damit die Auflösung erhöhen
+
+TODO:
+Am Ende noch die Sache mit den Paketen anschaune
+Im Donwlink mit Paketgröße mit 1500 byte und im Uplink mit
+kleinerer Paketgröße
+
+für den Uplink in der request.csv und dann gewichtete Summe erstellen
+einen zweidimensionalen Arra mit dem mean und dem count der Pakete
+
+In den Simtech Folien den Hintergrund nachlesen
+
+WICHTIG: Zu nächster WOche mal alles in Slites zusammenfassen und strukturieren
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

@@ -77,7 +77,7 @@ with open(LOG_FILE, 'w') as log_file:
             cpu_usage = get_cpu_usage(script_pid)  # PID des Skripts verwenden
             memory_usage = proc.memory_info().rss / 1024  # Speicher in KB
 
-            log_file.write(f"{datetime.now().strftime('%H:%M:%S')};{cpu_usage:.30f};{memory_usage:.2f}\n")
+            log_file.write(f"{time.time_ns()};{cpu_usage:.30f};{memory_usage:.2f}\n")
             log_file.flush()  # Schreibe die Datei sofort auf die Festplatte
 
             time.sleep(1)

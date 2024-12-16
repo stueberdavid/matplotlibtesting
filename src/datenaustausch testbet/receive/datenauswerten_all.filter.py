@@ -2,7 +2,6 @@ import os
 import time
 import subprocess
 import psutil
-from datetime import datetime
 
 
 # Filter aktivieren
@@ -101,7 +100,7 @@ def get_cpu_usage(pid):
 
 # Starte die Überwachung der Ressourcennutzung für Dumpcap
 with open(LOG_FILE, 'w') as log_file:
-    log_file.write("Zeit;CPU(%);MEM(KB)\n")  # CSV-Header
+    log_file.write("Time in Milliseconds since Epoche;CPU(%);MEM(KB)\n")  # CSV-Header
 
     # Starte die Überwachung in einer Schleife
     try:
@@ -111,7 +110,7 @@ with open(LOG_FILE, 'w') as log_file:
             memory_usage = proc.memory_info().rss / 1024  # Speicher in KB
 
             # Schreibe die Ressourcennutzung in die CSV-Datei mit 6 Nachkommastellen für CPU
-            log_file.write(f"{datetime.now().strftime('%H:%M:%S')};{cpu_usage:.15f};{memory_usage:.2f}\n")
+            log_file.write(f"{time.time_ns()};{cpu_usage:.15f};{memory_usage:.2f}\n")
             log_file.flush()  # Schreibe die Datei sofort auf die Festplatte
 
             time.sleep(1)

@@ -2,13 +2,13 @@ import os
 import time
 import subprocess
 import psutil
+from datetime import datetime
 
 # Variablen setzen
 INTERFACE = "enp0s25"
 #INTERFACE = "eno1"
 CAPTURE_FILE = "/home/david/test.pcap"
 LOG_FILE = "/home/david/receiver_resource_usage.csv"
-MEINE_IP = "10.0.0.1"
 
 # Entfernen der alten CAPTURE_FILE, falls vorhanden, und Erstellen eines neuen
 if os.path.exists(CAPTURE_FILE):
@@ -17,7 +17,7 @@ with open(CAPTURE_FILE, 'w') as f:
     pass  # Neue Datei erstellen
 
 # Starte Tshark im Hintergrund (hier ohne Filter, Filter kann hinzugefügt werden)
-tshark_cmd = ["sudo", "tshark", "-i", INTERFACE, "-w", CAPTURE_FILE, "-f", f"dst host {MEINE_IP}"]
+tshark_cmd = ["sudo", "tshark", "-i", INTERFACE, "-w", CAPTURE_FILE]
 tshark_process = subprocess.Popen(tshark_cmd)
 
 # Warte, bis Dumpcap sicher gestartet ist
@@ -37,46 +37,12 @@ if dumpcap_pid is None:
 
 
 def get_cpu_usage(pid):
-    try:
-        # Überprüfen, ob der Prozess existiert
-        proc = psutil.Process(pid)
-
-        # Öffne die Datei /proc/[pid]/stat
-        stat_file = f"/proc/{pid}/stat"
-        if not os.path.exists(stat_file):
-            print(f"Datei {stat_file} existiert nicht.")
-            return 0.0  # Standardwert zurückgeben, wenn die Datei nicht existiert
-
-        # Werte aus der Datei extrahieren
-        with open(stat_file, 'r') as f:
-            stat_values = f.read().split()
-            utime = int(stat_values[13])  # 14. Wert (Index 13 in Python)
-            stime = int(stat_values[14])  # 15. Wert (Index 14 in Python)
-            starttime = int(stat_values[21])  # 22. Wert (Index 21 in Python)
-
-        # Jiffies pro Sekunde ermitteln
-        hertz = os.sysconf(os.sysconf_names['SC_CLK_TCK'])
-
-        # Verbrauchte Zeit (in Sekunden)
-        cpu_time = (utime + stime) / hertz
-
-        # Gesamte Zeit seit dem Systemstart (in Sekunden)
-        with open('/proc/uptime', 'r') as f:
-            uptime = float(f.read().split()[0])
-
-        # Gesamte Prozesszeit in Sekunden
-        total_time = uptime - (starttime / hertz)
-
-        if total_time <= 0:
-            return 0.0  # Standardwert zurückgeben
-
-        # CPU-Auslastung in Prozent
-        cpu_usage_percentage = (cpu_time / total_time) * 100
-        return round(cpu_usage_percentage, 15)
-
-    except Exception as e:
-        print(f"Fehler bei der Berechnung der CPU-Auslastung: {e}")
-        return 0.0  # Standardwert zurückgeben
+    def get_cpu_usage(pid):
+        try:
+            proc = psutil.Process(pid)
+            return proc.cpu_percent(interval=0.1)
+        except psutil.NoSuchProcess:
+            return None
 
 
 # Starte die Überwachung der Ressourcennutzung für Dumpcap

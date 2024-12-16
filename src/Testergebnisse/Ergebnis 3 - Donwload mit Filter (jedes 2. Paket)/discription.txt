@@ -6,3 +6,5 @@ Ergebnis 3
 
 - Gesammelte Daten in reciver_resource_usage.csv
     -> gemessen mit datenauswerten_all.filter.py
+
+- Durchschnitt: 1.2471710062942847

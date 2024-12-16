@@ -10,3 +10,5 @@ Ergebnis 2
     MEINE_IP = "216.58.206.46"
     MEINE_IP1 = "74.125.162.166"
     tshark_cmd = ["sudo", "tshark", "-i", INTERFACE, "-w", CAPTURE_FILE, "-f", f"src host {MEINE_IP} or src host {MEINE_IP1}"]
+
+- Durchschnitt: 0.23613110452671227
