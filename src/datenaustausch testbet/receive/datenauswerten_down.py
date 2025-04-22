@@ -8,7 +8,7 @@ INTERFACE = "enp0s25"
 #INTERFACE = "eno1"
 CAPTURE_FILE = "/home/david/test.pcap"
 LOG_FILE = "/home/david/receiver_resource_usage.csv"
-MEINE_IP = "10.0.0.1"
+ZIEL_IP= "10.0.0.2"
 
 # Entfernen der alten CAPTURE_FILE, falls vorhanden, und Erstellen eines neuen
 if os.path.exists(CAPTURE_FILE):
@@ -17,7 +17,7 @@ with open(CAPTURE_FILE, 'w') as f:
     pass  # Neue Datei erstellen
 
 # Starte Tshark im Hintergrund (hier ohne Filter, Filter kann hinzugefügt werden)
-tshark_cmd = ["sudo", "tshark", "-i", INTERFACE, "-w", CAPTURE_FILE, "-f", f"dst host {MEINE_IP}"]
+tshark_cmd = ["sudo", "tshark", "-i", INTERFACE, "-w", CAPTURE_FILE, "-f", f"dst host {ZIEL_IP}"]
 tshark_process = subprocess.Popen(tshark_cmd)
 
 # Warte, bis Dumpcap sicher gestartet ist

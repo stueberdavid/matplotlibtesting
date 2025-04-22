@@ -1,3 +1,5 @@
+from __future__ import print_function
+
 import os
 import time
 import subprocess
@@ -5,7 +7,6 @@ import psutil
 
 # Variablen setzen
 INTERFACE = "enp0s25"
-#INTERFACE = "eno1"
 CAPTURE_FILE = "/home/david/test.pcap"
 LOG_FILE = "/home/david/receiver_resource_usage.csv"
 
@@ -67,7 +68,7 @@ def get_cpu_usage(pid):
         total_time = uptime - (starttime / hertz)
 
         if total_time <= 0:
-            return 999.0  # Standardwert zurückgeben
+            return 0.0  # Standardwert zurückgeben
 
         # CPU-Auslastung in Prozent
         cpu_usage_percentage = (cpu_time / total_time) * 100
@@ -76,7 +77,6 @@ def get_cpu_usage(pid):
     except Exception as e:
         print(f"Fehler bei der Berechnung der CPU-Auslastung: {e}")
         return 0.0  # Standardwert zurückgeben
-
 
 # Starte die Überwachung der Ressourcennutzung für Dumpcap
 with open(LOG_FILE, 'w') as log_file:

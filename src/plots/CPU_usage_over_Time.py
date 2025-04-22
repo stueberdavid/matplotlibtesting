@@ -1,8 +1,8 @@
 import matplotlib.pyplot as plt
 import pandas as pd
 
-
-CPU_Usage_File_Download = "/home/david/PycharmProjects/matplotlibtesting/src/Testergebnisse/Ergebnis 1 - Download/receiver_resource_usage.csv"
+CPU_Usage_File_Download = "/home/david/receiver_resource_usage.csv"
+#CPU_Usage_File_Download = "/home/david/PycharmProjects/matplotlibtesting/src/Testergebnisse/Ergebnis 1 - Download/receiver_resource_usage.csv"
 CPU_Usage_File_Upload = "/home/david/PycharmProjects/matplotlibtesting/src/Testergebnisse/Ergebnis 2 - Upload/receiver_resource_usage.csv"
 CPU_Usage_File_Download_filter = "/home/david/PycharmProjects/matplotlibtesting/src/Testergebnisse/Ergebnis 3 - Donwload mit Filter (jedes 2. Paket)/receiver_resource_usage.filter.csv"
 
@@ -28,8 +28,8 @@ x = list(range(1, max_length + 1))
 
 plt.figure(figsize=(8, 5))  # Optional: Größe des Plots anpassen
 plt.plot(x, y1, marker='.', linestyle=':', color='g', label='Download')
-plt.plot(x, y2, marker='.', linestyle='-', color='r', label='Upload')
-plt.plot(x, y3, marker='.', linestyle='--', color='b', label='Download jedes 2. Paket')
+#plt.plot(x, y2, marker='.', linestyle='-', color='r', label='Upload')
+#plt.plot(x, y3, marker='.', linestyle='--', color='b', label='Download jedes 2. Paket')
 
 # Achsenbeschriftung und Titel
 plt.xlabel('Sekunden seit Messbeginn')

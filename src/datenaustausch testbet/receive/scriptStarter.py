@@ -7,7 +7,6 @@ import os
 processes = []
 
 def start_script(script_path):
-    """Startet ein Skript mit sudo-Rechten."""
     try:
         process = subprocess.Popen(
             ["sudo", "python3", script_path],
@@ -42,14 +41,14 @@ if __name__ == "__main__":
     signal.signal(signal.SIGTERM, signal_handler)
 
     # Pfade zu den Skripten
-    script1 = "/home/david/PycharmProjects/matplotlibtesting/src/datenaustausch testbet/receive/datenauswerten_all.py"
-    script2 = "/home/david/PycharmProjects/matplotlibtesting/src/datenaustausch testbet/receive/datenauswerten_down.py"
-    script3 = "/home/david/PycharmProjects/matplotlibtesting/src/datenaustausch testbet/receive/datenauswerten_up.py"
+    all = "/home/david/PycharmProjects/matplotlibtesting/src/datenaustausch testbet/receive/datenauswerten_all.py"
+    down = "/home/david/PycharmProjects/matplotlibtesting/src/datenaustausch testbet/receive/datenauswerten_down.py"
+    up = "/home/david/PycharmProjects/matplotlibtesting/src/datenaustausch testbet/receive/datenauswerten_up.py"
 
     # Skripte starten
-    start_script(script1)
-    start_script(script2)
-    #start_script(script3)
+    start_script(all)
+    start_script(down)
+    start_script(up)
 
     # Warten, bis der Benutzer das Skript beendet
     try:

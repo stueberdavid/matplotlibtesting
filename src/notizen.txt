@@ -467,8 +467,8 @@ Nächster Schritt Stromverbrauch beobachten.
 
 
 Um das Problem mit dem Download Filter
-die Befehle mit dem Termianl ausführen und die pcap DAteien anschauen,
-ob sie wie eerwartet aussehen.
+die Befehle mit dem Termianl ausführen und die pcap Dateien anschauen,
+ob sie wie erwartet aussehen.
 
 Jeden Test 10 Minuten und 30 Sek lang und innerhalb der 10 Minuten die
 CPU Auslastung über die Zeit anschauen
@@ -481,19 +481,59 @@ Verschiedene Intervalle von 10² - 10³, 10³ - 10⁴, 10⁴ - 10⁵
 für diese Intervalle jeweils eine logarithmische Aufteilung machen und damit die Auflösung erhöhen
 
 TODO:
-Am Ende noch die Sache mit den Paketen anschaune
+Am Ende noch die Sache mit den Paketen anschauen
 Im Donwlink mit Paketgröße mit 1500 byte und im Uplink mit
 kleinerer Paketgröße
 
 für den Uplink in der request.csv und dann gewichtete Summe erstellen
-einen zweidimensionalen Arra mit dem mean und dem count der Pakete
+einen zweidimensionalen Array mit dem mean und dem count der Pakete
 
 In den Simtech Folien den Hintergrund nachlesen
 
-WICHTIG: Zu nächster WOche mal alles in Slites zusammenfassen und strukturieren
+WICHTIG: Zu nächster Woche mal alles in Slites zusammenfassen und strukturieren
 
 
 
+Meeting 15.01.25:
+
+Eine detaillierte Beschreibung der Messung
+in Stichpunkten
+von Paket kommt an, bis zum Ergebnis
+
+Beschreibung von Testbed
+
+Die RohDaten von dem Plot longtest
+
+Dazu noch die Info zum RAM
+
+Wie viel Strom braucht die CPU? Herausfinden... mal anschauen Perfomance Counter
+    Man findet die maximal Watt Leistung der CPU, aber keinen Anstieg über die Utilization der einen Graph o.ä.
+    Thermal Design Power (TDP) ist für diese CPU 84 Watt
+
+    Mit dem Performance Counter kann man theorethische Modelle dazu erstellen wie viel Energie die CPU theoretisch verbraucht
+
+
+    ToDo:
+    
+    Beides für mich zum Lernen, nicht relevant für das Paper oder so
+
+    1.
+    Langzeitverhalten der CPU utilizatiopn betrachten
+    Intervall der Sendung 1 Stunde
+    20 Replikationen
+    steady State finden
+    Batch Means berechnen
+
+
+    2.
+    Im Datensatz nach drei Videos suchen die eine lange steady Phase haben
+    Plott von der Zeit zwischen den Requeste
+    x-Achse - Zeit
+    y-Achse - Zeit zwischen den Request
+
+    mindestens 100 Sekunden land steady
+
+    falls ich ein charakteristisches Muster sehe, überlegen warum, falls nicht, muss ich schauen, was ich falsch gemaccht habe (vllt. anderes Video)
 
 
 
